@@ -3,7 +3,8 @@ import Navbar from './components/Navbar'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import RoutePage from './components/RoutePage'
 import { useEffect, useState } from 'react'
-import { db } from './firebase/config'
+import { db } from './utils/firebase'
+import Context from './utils/context'
 
 function App() {
     const [routes, setRoutes] = useState(null)
@@ -18,19 +19,21 @@ function App() {
             })
     }, [])
     return (
-        <Router>
-            <Navbar />
-            <div className='container'>
-                <Switch>
-                    <Route path='/:id'>
-                        <RoutePage routes={routes} />
-                    </Route>
-                    <Route path='/'>
-                        <Home routes={routes} />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+        <Context.Provider value={{ routes }}>
+            <Router>
+                <Navbar />
+                <div className='container'>
+                    <Switch>
+                        <Route path='/:id'>
+                            <RoutePage />
+                        </Route>
+                        <Route path='/'>
+                            <Home />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </Context.Provider>
     )
 }
 
