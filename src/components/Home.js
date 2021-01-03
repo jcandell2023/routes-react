@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import Context from '../utils/context'
+import Tooltip from 'react-tooltip'
 
 const Home = () => {
     const { routes } = useContext(Context)
@@ -32,13 +33,16 @@ const Home = () => {
                         routes
                             .filter((route) => new RegExp(search, 'i').test(route.name))
                             .map((route) => (
-                                <tr
-                                    key={route.garmin_id}
-                                    onClick={() => onClick(route.garmin_id)}
-                                    title={route.description}>
-                                    <td>{route.name}</td>
-                                    <td>{route.distance}</td>
-                                </tr>
+                                <>
+                                    <tr
+                                        key={route.garmin_id}
+                                        onClick={() => onClick(route.garmin_id)}
+                                        data-tip={route.description}>
+                                        <td>{route.name}</td>
+                                        <td>{route.distance}</td>
+                                    </tr>
+                                    <Tooltip place='top' type='dark' effect='solid' />
+                                </>
                             ))}
                 </tbody>
             </table>
