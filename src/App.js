@@ -1,10 +1,12 @@
 import Home from './components/Home'
-import Navbar from './components/Navbar'
+import AppNavbar from './components/AppNavbar'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import RoutePage from './components/RoutePage'
 import { useEffect, useState } from 'react'
 import { db } from './utils/firebase'
 import Context from './utils/context'
+import { Container } from 'reactstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
     const [routes, setRoutes] = useState(null)
@@ -21,8 +23,8 @@ function App() {
     return (
         <Context.Provider value={{ routes }}>
             <Router>
-                <Navbar />
-                <div className='container'>
+                <AppNavbar />
+                <Container>
                     <Switch>
                         <Route path='/:id'>
                             <RoutePage />
@@ -31,7 +33,7 @@ function App() {
                             <Home />
                         </Route>
                     </Switch>
-                </div>
+                </Container>
             </Router>
         </Context.Provider>
     )
